@@ -22,16 +22,15 @@
   <style>
 
     :root {
-      --header-bg: #ffffff;
-      --bg: #ffffff;
-      --card-bg: #ffffff;
-      --btn-primary: #0ea5e9;
-      --btn-hover: #1f2937;
-      --heading-color: #1e293b;
-      --text: #1e293b;
-      --text-muted: #6b7280;
-      --price-color: #0ea5e9;
-      --border: #e5e7eb;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --header-bg: #1e293b;
+      --primary: #6366f1;
+      --accent: #f59e0b;
+      --heading-color: #f8fafc;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
     }
 
     * {
@@ -44,47 +43,90 @@
       font-family: 'system-ui', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.7;
-    }
-
-    h1, h2, h3 {
-      font-family: 'system-ui', Georgia, serif;
+      line-height: 1.6;
     }
 
     .header {
+      padding: 1.5rem 2rem;
+      background: var(--header-bg);
+      color: white;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+
+    .nav a:hover {
+      opacity: 1;
+    }
+
+    .hero {
       padding: 3rem 2rem;
       text-align: center;
-      background: var(--header-bg);
-      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(37, 99, 235, 0.05) 0%, transparent 100%);
     }
 
-    .header h1 {
+    .hero h1 {
       font-size: 2rem;
-      font-weight: 400;
-      color: var(--btn-primary);
-      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+      color: var(--heading-color);
     }
 
-    .header p {
+    .hero p {
       color: var(--text-muted);
-      margin-top: 0.75rem;
-      font-size: 0.875rem;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2.5rem;
-      padding: 3rem 2rem;
-      max-width: 1200px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      padding: 2rem;
+      max-width: 1400px;
       margin: 0 auto;
+    }
+
+    @media (max-width: 1024px) {
+      .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
     @media (max-width: 768px) {
       .products-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-        padding: 2rem 1rem;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 1.5rem;
       }
     }
 
@@ -96,40 +138,72 @@
 
     .product-card {
       background: var(--card-bg);
+      border-radius: 16px;
       overflow: hidden;
-      transition: transform 0.2s;
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .product-card:hover {
       transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.1);
+    }
+
+    .product-image-container {
+      position: relative;
+      overflow: hidden;
     }
 
     .product-image {
       width: 100%;
       aspect-ratio: 1;
       object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .product-card:hover .product-image {
+      transform: scale(1.03);
+    }
+
+    .product-rating {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .product-rating::before {
+      content: '★';
+      color: var(--accent);
     }
 
     .product-info {
-      padding: 1.25rem 0;
+      padding: 1.25rem;
     }
 
     .product-title {
-      font-family: 'system-ui', Georgia, serif;
-      font-size: 1rem;
-      font-weight: 400;
-      color: var(--text);
+      font-size: 0.875rem;
+      font-weight: 500;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
       min-height: 2.6rem;
+      color: var(--text);
     }
 
     .product-price {
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--price-color);
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--primary);
       margin-top: 0.5rem;
     }
 
@@ -138,12 +212,11 @@
       width: 100%;
       padding: 0.875rem;
       margin-top: 1rem;
-      background: var(--btn-primary);
+      background: var(--primary);
       color: white;
       border: none;
-      font-family: 'system-ui', sans-serif;
-      font-weight: 500;
-      font-size: 0.875rem;
+      border-radius: 16px;
+      font-weight: 600;
       cursor: pointer;
       text-decoration: none;
       text-align: center;
@@ -151,12 +224,12 @@
     }
 
     .product-btn:hover {
-      background: var(--btn-hover);
+      background: #1d4ed8;
     }
 
     .footer {
       text-align: center;
-      padding: 3rem 2rem;
+      padding: 2rem;
       color: var(--text-muted);
       font-size: 0.875rem;
       border-top: 1px solid var(--border);
@@ -166,313 +239,424 @@
 <body>
   
   <header class="header">
+    <div class="header-content">
+      <div class="logo">test</div>
+      <nav class="nav">
+        <a href="#">Home</a>
+        <a href="#">Products</a>
+        <a href="#">Categories</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
     <h1>test</h1>
     <p>test</p>
-  </header>
+  </section>
   
   <main class="products-grid">
     
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/Sf6060d2add7b410381ab6e4e32d097acY.jpg" alt="[แพ็กคู่] ลอรีอัล ปารีส L&#039;Oréal Paris Aura Perfect Milky Foam 100 ml โฟมล้างหน้าเพื่อผิวกระจ่างใส เนื้อมิลค์กี้โฟม" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/Sf6060d2add7b410381ab6e4e32d097acY.jpg" alt="[แพ็กคู่] ลอรีอัล ปารีส L&#039;Oréal Paris Aura Perfect Milky Foam 100 ml โฟมล้างหน้าเพื่อผิวกระจ่างใส เนื้อมิลค์กี้โฟม" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">[แพ็กคู่] ลอรีอัล ปารีส L&#039;Oréal Paris Aura Perfect Milky Foam 100 ml โฟมล้างหน้าเพื่อผิวกระจ่างใส เนื้อมิลค์กี้โฟม</h2>
         <p class="product-price">฿209</p>
-        <a href="https://www.lazada.co.th/products/i1751846815.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i1751846815.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/Sbb2d8ed827e14e1ea9521a18ce831749u.jpg" alt="[Set] L&#039;Oréal Paris Glycolic Bright Anti-Dark Spot Set Serum 30ml + Day Cream 50ml + Night Cream 50ml" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/Sbb2d8ed827e14e1ea9521a18ce831749u.jpg" alt="[Set] L&#039;Oréal Paris Glycolic Bright Anti-Dark Spot Set Serum 30ml + Day Cream 50ml + Night Cream 50ml" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">[Set] L&#039;Oréal Paris Glycolic Bright Anti-Dark Spot Set Serum 30ml + Day Cream 50ml + Night Cream 50ml</h2>
         <p class="product-price">฿1399</p>
-        <a href="https://www.lazada.co.th/products/i3246997734.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i3246997734.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/S14fdf86bcfb840668e8626cc82990507h.jpg" alt="[Set] L&#039;Oréal Paris Glycolic Bright Anti-Dark Spot Set Day Cream 50ml + Night Cream 50ml Moisturizer Reduces Spots" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/S14fdf86bcfb840668e8626cc82990507h.jpg" alt="[Set] L&#039;Oréal Paris Glycolic Bright Anti-Dark Spot Set Day Cream 50ml + Night Cream 50ml Moisturizer Reduces Spots" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">[Set] L&#039;Oréal Paris Glycolic Bright Anti-Dark Spot Set Day Cream 50ml + Night Cream 50ml Moisturizer Reduces Spots</h2>
         <p class="product-price">฿899</p>
-        <a href="https://www.lazada.co.th/products/i3246999732.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i3246999732.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/S13d221fec5314461885cf5869e1c4c16D.jpg" alt="[Double Pack] L&#039;Oréal Paris Glycolic Bright Anti-Dark Spot Brightening Serum 30ml X2 Serum for Glowing Skin and Reducing Spots." class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/S13d221fec5314461885cf5869e1c4c16D.jpg" alt="[Double Pack] L&#039;Oréal Paris Glycolic Bright Anti-Dark Spot Brightening Serum 30ml X2 Serum for Glowing Skin and Reducing Spots." class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">[Double Pack] L&#039;Oréal Paris Glycolic Bright Anti-Dark Spot Brightening Serum 30ml X2 Serum for Glowing Skin and Reducing Spots.</h2>
         <p class="product-price">฿1049</p>
-        <a href="https://www.lazada.co.th/products/i3247036550.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i3247036550.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/S2b65abc52a4944a89fb661fb1988422ar.jpg" alt="[No. 1 Best-Selling Sunscreen* Waterproof, Sweat-Proof] L&#039;Oréal Paris Uv Defender Invisible Fluid Spf50+ Pa++++ 50ml Invisible Sunscreen, Lightweight, Not Greasy." class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/S2b65abc52a4944a89fb661fb1988422ar.jpg" alt="[No. 1 Best-Selling Sunscreen* Waterproof, Sweat-Proof] L&#039;Oréal Paris Uv Defender Invisible Fluid Spf50+ Pa++++ 50ml Invisible Sunscreen, Lightweight, Not Greasy." class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">[No. 1 Best-Selling Sunscreen* Waterproof, Sweat-Proof] L&#039;Oréal Paris Uv Defender Invisible Fluid Spf50+ Pa++++ 50ml Invisible Sunscreen, Lightweight, Not Greasy.</h2>
         <p class="product-price">฿799</p>
-        <a href="https://www.lazada.co.th/products/i4218976343.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i4218976343.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/S93e21b8249f94893811cf581998b8bf26.jpg" alt="New Lip Gloss! L&#039;Oreal Paris Infallible Laque Resistance Lacquer Resistance Lipstick, Glossy Texture, Lasts for 16 Hours." class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/S93e21b8249f94893811cf581998b8bf26.jpg" alt="New Lip Gloss! L&#039;Oreal Paris Infallible Laque Resistance Lacquer Resistance Lipstick, Glossy Texture, Lasts for 16 Hours." class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">New Lip Gloss! L&#039;Oreal Paris Infallible Laque Resistance Lacquer Resistance Lipstick, Glossy Texture, Lasts for 16 Hours.</h2>
         <p class="product-price">฿309</p>
-        <a href="https://www.lazada.co.th/products/i5732586368.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5732586368.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/Sf6b0c52339594ea888e2950454e34cc3k.jpg" alt="[Buy 1 Get 2 Free Refill][Cushion+Refill X2] L&#039;Oréal Paris Infallible Pro-Cover Cushion 14g Cushion Foundation, Full Coverage, Long-Lasting, Lightweight Texture." class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/Sf6b0c52339594ea888e2950454e34cc3k.jpg" alt="[Buy 1 Get 2 Free Refill][Cushion+Refill X2] L&#039;Oréal Paris Infallible Pro-Cover Cushion 14g Cushion Foundation, Full Coverage, Long-Lasting, Lightweight Texture." class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">[Buy 1 Get 2 Free Refill][Cushion+Refill X2] L&#039;Oréal Paris Infallible Pro-Cover Cushion 14g Cushion Foundation, Full Coverage, Long-Lasting, Lightweight Texture.</h2>
         <p class="product-price">฿999</p>
-        <a href="https://www.lazada.co.th/products/i5811751532.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5811751532.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/Sf22668bb7698415c8430f2c245fa4bb17.jpg" alt="[Double Pack] L&#039;Oréal Paris Revitalift Cleansing Foam 100ml Milk-Based Facial Cleansing Foam for Youthful, Smooth Skin" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/Sf22668bb7698415c8430f2c245fa4bb17.jpg" alt="[Double Pack] L&#039;Oréal Paris Revitalift Cleansing Foam 100ml Milk-Based Facial Cleansing Foam for Youthful, Smooth Skin" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">[Double Pack] L&#039;Oréal Paris Revitalift Cleansing Foam 100ml Milk-Based Facial Cleansing Foam for Youthful, Smooth Skin</h2>
         <p class="product-price">฿259</p>
-        <a href="https://www.lazada.co.th/products/i1751874460.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i1751874460.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/S4078aa0e94d14c868ea945d9b056a73aC.jpg" alt="ลอรีอัล ปารีส L&#039;Oréal Paris Revitalift Aqua Milk Toner 200ml โทนเนอร์สูตรน้ำนม ช่วยให้ผิวกระชับยืดหยุ่น ริ้วรอยลดเลือนลง" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/S4078aa0e94d14c868ea945d9b056a73aC.jpg" alt="ลอรีอัล ปารีส L&#039;Oréal Paris Revitalift Aqua Milk Toner 200ml โทนเนอร์สูตรน้ำนม ช่วยให้ผิวกระชับยืดหยุ่น ริ้วรอยลดเลือนลง" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">ลอรีอัล ปารีส L&#039;Oréal Paris Revitalift Aqua Milk Toner 200ml โทนเนอร์สูตรน้ำนม ช่วยให้ผิวกระชับยืดหยุ่น ริ้วรอยลดเลือนลง</h2>
         <p class="product-price">฿219</p>
-        <a href="https://www.lazada.co.th/products/i703408.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i703408.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/S9f5602bc56b24b2a96fcb4d5b8a2ef69T.jpg" alt="ลอรีอัล ปารีส L&#039;Oréal Paris Glycolic Bright Glowing Daily Foam Cleanser 100ml โฟมล้างหน้า ช่วยผลัดเซลล์ผิวอย่างอ่อนโยน" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/S9f5602bc56b24b2a96fcb4d5b8a2ef69T.jpg" alt="ลอรีอัล ปารีส L&#039;Oréal Paris Glycolic Bright Glowing Daily Foam Cleanser 100ml โฟมล้างหน้า ช่วยผลัดเซลล์ผิวอย่างอ่อนโยน" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">ลอรีอัล ปารีส L&#039;Oréal Paris Glycolic Bright Glowing Daily Foam Cleanser 100ml โฟมล้างหน้า ช่วยผลัดเซลล์ผิวอย่างอ่อนโยน</h2>
         <p class="product-price">฿179</p>
-        <a href="https://www.lazada.co.th/products/i3248917881.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i3248917881.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/Sb7f6f86a282447208a1f3df44e8569a9f.jpg" alt="L&#039;Oréal Paris Infaillible Fresh Wear Foundation 30ml, Fresh Foundation That Covers and Lasts for 32 Hours. Waterproof, Sweatproof" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/Sb7f6f86a282447208a1f3df44e8569a9f.jpg" alt="L&#039;Oréal Paris Infaillible Fresh Wear Foundation 30ml, Fresh Foundation That Covers and Lasts for 32 Hours. Waterproof, Sweatproof" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">L&#039;Oréal Paris Infaillible Fresh Wear Foundation 30ml, Fresh Foundation That Covers and Lasts for 32 Hours. Waterproof, Sweatproof</h2>
         <p class="product-price">฿429</p>
-        <a href="https://www.lazada.co.th/products/i5314775938.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5314775938.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/Saca017cc49bc47eeb8d9e31a5c21c053u.jpg" alt="L&#039;Oreal Paris Infallible Matte Resistance Lipstick, Long-Lasting Matte Lipstick, Easy to Blend, Combines Hyaluronic Acid to Nourish and Moisturize Lips." class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/Saca017cc49bc47eeb8d9e31a5c21c053u.jpg" alt="L&#039;Oreal Paris Infallible Matte Resistance Lipstick, Long-Lasting Matte Lipstick, Easy to Blend, Combines Hyaluronic Acid to Nourish and Moisturize Lips." class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">L&#039;Oreal Paris Infallible Matte Resistance Lipstick, Long-Lasting Matte Lipstick, Easy to Blend, Combines Hyaluronic Acid to Nourish and Moisturize Lips.</h2>
         <p class="product-price">฿289</p>
-        <a href="https://www.lazada.co.th/products/i4868511258.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i4868511258.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/S69ad6f0279bf4e6fb5a6e2873cdda24a6.jpg" alt="[Double Pack] L&#039;Oréal Paris Revitalift Anti-Wrinkle &amp; Firming Day Cream Spf35/Pa++ 50ml Day Cream Reduces the Appearance of Wrinkles." class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/S69ad6f0279bf4e6fb5a6e2873cdda24a6.jpg" alt="[Double Pack] L&#039;Oréal Paris Revitalift Anti-Wrinkle &amp; Firming Day Cream Spf35/Pa++ 50ml Day Cream Reduces the Appearance of Wrinkles." class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">[Double Pack] L&#039;Oréal Paris Revitalift Anti-Wrinkle &amp; Firming Day Cream Spf35/Pa++ 50ml Day Cream Reduces the Appearance of Wrinkles.</h2>
         <p class="product-price">฿749</p>
-        <a href="https://www.lazada.co.th/products/i1752044176.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i1752044176.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/S2e7e3646c7514289994e273dd81f75f8Y.jpg" alt="L&#039;Oréal Paris Excellence Hair Color Cream Natural Shades (Excellence, Hair Dye, Coloring, Hair Color)" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/S2e7e3646c7514289994e273dd81f75f8Y.jpg" alt="L&#039;Oréal Paris Excellence Hair Color Cream Natural Shades (Excellence, Hair Dye, Coloring, Hair Color)" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">L&#039;Oréal Paris Excellence Hair Color Cream Natural Shades (Excellence, Hair Dye, Coloring, Hair Color)</h2>
         <p class="product-price">฿365</p>
-        <a href="https://www.lazada.co.th/products/i715147.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i715147.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live.slatic.net/p/afbeef28de0886c47b4092e72f663ad9.jpg" alt="L&#039;Oréal Paris Revitalift Triple Power Serum, a Serum That Reduces the Appearance of Wrinkles. the Ultimate Serum for Firm Skin. Manage Skin Problems" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live.slatic.net/p/afbeef28de0886c47b4092e72f663ad9.jpg" alt="L&#039;Oréal Paris Revitalift Triple Power Serum, a Serum That Reduces the Appearance of Wrinkles. the Ultimate Serum for Firm Skin. Manage Skin Problems" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">L&#039;Oréal Paris Revitalift Triple Power Serum, a Serum That Reduces the Appearance of Wrinkles. the Ultimate Serum for Firm Skin. Manage Skin Problems</h2>
         <p class="product-price">฿739</p>
-        <a href="https://www.lazada.co.th/products/i5980915235.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5980915235.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/Sf6c9e7f69e1f473b99ba19e0ebecc7323.jpg" alt="ลอรีอัล ปารีส L&#039;Oreal Paris Excellence Ash Supreme ยาย้อมผม ครีมเปลี่ยนสีผมโทนสีแอชประกายหม่น พร้อมแชมพูและมาสก์ม่วง" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/Sf6c9e7f69e1f473b99ba19e0ebecc7323.jpg" alt="ลอรีอัล ปารีส L&#039;Oreal Paris Excellence Ash Supreme ยาย้อมผม ครีมเปลี่ยนสีผมโทนสีแอชประกายหม่น พร้อมแชมพูและมาสก์ม่วง" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">ลอรีอัล ปารีส L&#039;Oreal Paris Excellence Ash Supreme ยาย้อมผม ครีมเปลี่ยนสีผมโทนสีแอชประกายหม่น พร้อมแชมพูและมาสก์ม่วง</h2>
         <p class="product-price">฿365</p>
-        <a href="https://www.lazada.co.th/products/i2783143564.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i2783143564.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/Se88f44d3dc864082bb88e6c481ed87102.jpg" alt="ลอรีอัล ปารีส เอลแซฟ ไกลโคลิค กลอส อัลตรา กลอส แอซิดดิไฟเออร์ 100 มล." class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/Se88f44d3dc864082bb88e6c481ed87102.jpg" alt="ลอรีอัล ปารีส เอลแซฟ ไกลโคลิค กลอส อัลตรา กลอส แอซิดดิไฟเออร์ 100 มล." class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">ลอรีอัล ปารีส เอลแซฟ ไกลโคลิค กลอส อัลตรา กลอส แอซิดดิไฟเออร์ 100 มล.</h2>
         <p class="product-price">฿125</p>
-        <a href="https://www.lazada.co.th/products/i5864786868.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5864786868.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/Sdb9e5a59202c4560a1676242b1d30fdf9.jpg" alt="L&#039;Oréal Paris Uv Defender Aquafusion Daily Water Gel Sunscreen Spf50+ Pa++++ 50Mlx2 Sunblock, Absorbs Quickly." class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/Sdb9e5a59202c4560a1676242b1d30fdf9.jpg" alt="L&#039;Oréal Paris Uv Defender Aquafusion Daily Water Gel Sunscreen Spf50+ Pa++++ 50Mlx2 Sunblock, Absorbs Quickly." class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">L&#039;Oréal Paris Uv Defender Aquafusion Daily Water Gel Sunscreen Spf50+ Pa++++ 50Mlx2 Sunblock, Absorbs Quickly.</h2>
         <p class="product-price">฿799</p>
-        <a href="https://www.lazada.co.th/products/i5811489396.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5811489396.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/S78e3b89cf1894ca5a345ec59170ad699S.jpg" alt="ลอรีอัล ปารีส L&#039;Oreal Paris Magic Retouch 75ml สเปรย์ปกปิดผมขาวแบบชั่วคราว แนบสนิท แห้งไว ติดทน ไม่เลอะ" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/S78e3b89cf1894ca5a345ec59170ad699S.jpg" alt="ลอรีอัล ปารีส L&#039;Oreal Paris Magic Retouch 75ml สเปรย์ปกปิดผมขาวแบบชั่วคราว แนบสนิท แห้งไว ติดทน ไม่เลอะ" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">ลอรีอัล ปารีส L&#039;Oreal Paris Magic Retouch 75ml สเปรย์ปกปิดผมขาวแบบชั่วคราว แนบสนิท แห้งไว ติดทน ไม่เลอะ</h2>
         <p class="product-price">฿299</p>
-        <a href="https://www.lazada.co.th/products/i123757543.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i123757543.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/Sea523463fd4b4a14838d710b5f2facaft.jpg" alt="ลอรีอัล ปารีส L&#039;Oréal Paris Glycolic Bright Anti-Dark Spot Brightening Serum 30ml เซรั่มผิวโกลว์กระจ่างใส ลดจุด" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/Sea523463fd4b4a14838d710b5f2facaft.jpg" alt="ลอรีอัล ปารีส L&#039;Oréal Paris Glycolic Bright Anti-Dark Spot Brightening Serum 30ml เซรั่มผิวโกลว์กระจ่างใส ลดจุด" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">ลอรีอัล ปารีส L&#039;Oréal Paris Glycolic Bright Anti-Dark Spot Brightening Serum 30ml เซรั่มผิวโกลว์กระจ่างใส ลดจุด</h2>
         <p class="product-price">฿549</p>
-        <a href="https://www.lazada.co.th/products/i3247077296.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i3247077296.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/Se03cd7173c2c4af6b3be433dbfe75664Y.jpg" alt="[แพ็คx3] ลอรีอัล ปารีส L&#039;Oreal Paris Gentle Lip &amp; Eye Makeup Remover 125ml คลีนซิ่งล้างเครื่องสำอางกันน้ำ สูตรอ่อนโยน" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/Se03cd7173c2c4af6b3be433dbfe75664Y.jpg" alt="[แพ็คx3] ลอรีอัล ปารีส L&#039;Oreal Paris Gentle Lip &amp; Eye Makeup Remover 125ml คลีนซิ่งล้างเครื่องสำอางกันน้ำ สูตรอ่อนโยน" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">[แพ็คx3] ลอรีอัล ปารีส L&#039;Oreal Paris Gentle Lip &amp; Eye Makeup Remover 125ml คลีนซิ่งล้างเครื่องสำอางกันน้ำ สูตรอ่อนโยน</h2>
         <p class="product-price">฿599</p>
-        <a href="https://www.lazada.co.th/products/i3504661626.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i3504661626.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/Sc25775f1d516460681edf37d23910336m.jpg" alt="ลอรีอัล ปารีส เอลแซฟ ไกลโคลิค กลอส แชมพู 620มล. + คอนดิชั่นเนอร์ 375 มล." class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/Sc25775f1d516460681edf37d23910336m.jpg" alt="ลอรีอัล ปารีส เอลแซฟ ไกลโคลิค กลอส แชมพู 620มล. + คอนดิชั่นเนอร์ 375 มล." class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">ลอรีอัล ปารีส เอลแซฟ ไกลโคลิค กลอส แชมพู 620มล. + คอนดิชั่นเนอร์ 375 มล.</h2>
         <p class="product-price">฿289</p>
-        <a href="https://www.lazada.co.th/products/i5864766914.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5864766914.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/S0d538eca2e4742dd9accb27125a2bf52B.jpg" alt="ลอรีอัล ปารีส L&#039;Oréal Paris Glycolic Bright Glowing Cream Day SPF30 เดย์ครีม 50ml ช่วยลดความหมองคล้ำ ป้องกันจุดด่างดำ" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/S0d538eca2e4742dd9accb27125a2bf52B.jpg" alt="ลอรีอัล ปารีส L&#039;Oréal Paris Glycolic Bright Glowing Cream Day SPF30 เดย์ครีม 50ml ช่วยลดความหมองคล้ำ ป้องกันจุดด่างดำ" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">ลอรีอัล ปารีส L&#039;Oréal Paris Glycolic Bright Glowing Cream Day SPF30 เดย์ครีม 50ml ช่วยลดความหมองคล้ำ ป้องกันจุดด่างดำ</h2>
         <p class="product-price">฿489</p>
-        <a href="https://www.lazada.co.th/products/i3247007683.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i3247007683.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/S0fc70a6c9a9941aaa7eea490796be519H.jpg" alt="ลอรีอัล ปารีส L&#039;Oreal Paris Infallible 32H Matte Cover Liquid Foundation SPF 25 30ml รองพื้นเนื้อแมท ปกปิด ติดทน 32ชม." class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/S0fc70a6c9a9941aaa7eea490796be519H.jpg" alt="ลอรีอัล ปารีส L&#039;Oreal Paris Infallible 32H Matte Cover Liquid Foundation SPF 25 30ml รองพื้นเนื้อแมท ปกปิด ติดทน 32ชม." class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">ลอรีอัล ปารีส L&#039;Oreal Paris Infallible 32H Matte Cover Liquid Foundation SPF 25 30ml รองพื้นเนื้อแมท ปกปิด ติดทน 32ชม.</h2>
         <p class="product-price">฿409</p>
-        <a href="https://www.lazada.co.th/products/i4591512061.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i4591512061.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/Sb53ea0e1b9b544618e335e62aec49cc2U.jpg" alt="ลอรีอัล ปารีส L&#039;Oreal Paris Gentle Lip &amp; Eye Makeup Remover 125ml คลีนซิ่งสลายเมคอัพกันน้ำล้างเครื่องสำอาง สูตรอ่อนโยน" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/Sb53ea0e1b9b544618e335e62aec49cc2U.jpg" alt="ลอรีอัล ปารีส L&#039;Oreal Paris Gentle Lip &amp; Eye Makeup Remover 125ml คลีนซิ่งสลายเมคอัพกันน้ำล้างเครื่องสำอาง สูตรอ่อนโยน" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">ลอรีอัล ปารีส L&#039;Oreal Paris Gentle Lip &amp; Eye Makeup Remover 125ml คลีนซิ่งสลายเมคอัพกันน้ำล้างเครื่องสำอาง สูตรอ่อนโยน</h2>
         <p class="product-price">฿299</p>
-        <a href="https://www.lazada.co.th/products/i703433.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i703433.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/Sf4da99b6643644d5b40b9309cbb337bb8.jpg" alt="เอ็กซ์เทนชั่นนิส วอเตอร์พรูฟ มาสคาร่า Extensionist Waterproof Mascara" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/Sf4da99b6643644d5b40b9309cbb337bb8.jpg" alt="เอ็กซ์เทนชั่นนิส วอเตอร์พรูฟ มาสคาร่า Extensionist Waterproof Mascara" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">เอ็กซ์เทนชั่นนิส วอเตอร์พรูฟ มาสคาร่า Extensionist Waterproof Mascara</h2>
         <p class="product-price">฿419</p>
-        <a href="https://www.lazada.co.th/products/i5969634608.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5969634608.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/Sea3d7f6b910a46d591690cbc548adef73.jpg" alt="[Double Pack] L&#039;Oréal Paris Glycolic Bright Anti-Dark Spot Exfoliant Peel 25ml Pink Peeling Mask Exfoliating Skin Cells Helps Reduce the Appearance of Dark Spots." class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/Sea3d7f6b910a46d591690cbc548adef73.jpg" alt="[Double Pack] L&#039;Oréal Paris Glycolic Bright Anti-Dark Spot Exfoliant Peel 25ml Pink Peeling Mask Exfoliating Skin Cells Helps Reduce the Appearance of Dark Spots." class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">[Double Pack] L&#039;Oréal Paris Glycolic Bright Anti-Dark Spot Exfoliant Peel 25ml Pink Peeling Mask Exfoliating Skin Cells Helps Reduce the Appearance of Dark Spots.</h2>
         <p class="product-price">฿799</p>
-        <a href="https://www.lazada.co.th/products/i5722399092.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5722399092.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/S434c5aa947b24fbdabdbcfd8e5f77e0bS.jpg" alt="L&#039;Oréal Paris Excellence Crème Triple Care Color, Copper Shade, Hair Color Cream, Hair Dye, Hair Coloring, Completely Covers White Hair." class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/S434c5aa947b24fbdabdbcfd8e5f77e0bS.jpg" alt="L&#039;Oréal Paris Excellence Crème Triple Care Color, Copper Shade, Hair Color Cream, Hair Dye, Hair Coloring, Completely Covers White Hair." class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">L&#039;Oréal Paris Excellence Crème Triple Care Color, Copper Shade, Hair Color Cream, Hair Dye, Hair Coloring, Completely Covers White Hair.</h2>
         <p class="product-price">฿365</p>
-        <a href="https://www.lazada.co.th/products/i715150.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i715150.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/Sa1ff77bc95b1424f94803185e8b8e98aO.jpg" alt="L&#039;Oréal Paris Revitalift Clinical Grade Advanced Anti-Wrinkle Firming Set Day Cream 50ml + Night Cream 50ml + Emulsion 30ml" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/Sa1ff77bc95b1424f94803185e8b8e98aO.jpg" alt="L&#039;Oréal Paris Revitalift Clinical Grade Advanced Anti-Wrinkle Firming Set Day Cream 50ml + Night Cream 50ml + Emulsion 30ml" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">L&#039;Oréal Paris Revitalift Clinical Grade Advanced Anti-Wrinkle Firming Set Day Cream 50ml + Night Cream 50ml + Emulsion 30ml</h2>
         <p class="product-price">฿1499</p>
-        <a href="https://www.lazada.co.th/products/i5719263816.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5719263816.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/S0464c68cb8b543ebbe8d0b45d6cc695eU.jpg" alt="New! L&#039;Oréal Paris Infaillible 24H Power Glow Loose Powder in Mesh" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/S0464c68cb8b543ebbe8d0b45d6cc695eU.jpg" alt="New! L&#039;Oréal Paris Infaillible 24H Power Glow Loose Powder in Mesh" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">New! L&#039;Oréal Paris Infaillible 24H Power Glow Loose Powder in Mesh</h2>
         <p class="product-price">฿499</p>
-        <a href="https://www.lazada.co.th/products/i6046691906.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i6046691906.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/Se232669dc77348858b423c605d9fd64fv.jpg" alt="ลอรีอัล ปารีส L&#039;Oréal Revitalift Hyaluronic Acid Line Filling Water Cream 50mlครีมบำรุงผิวเติมความชุ่มชื้นเสริมปราการผิว" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/Se232669dc77348858b423c605d9fd64fv.jpg" alt="ลอรีอัล ปารีส L&#039;Oréal Revitalift Hyaluronic Acid Line Filling Water Cream 50mlครีมบำรุงผิวเติมความชุ่มชื้นเสริมปราการผิว" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">ลอรีอัล ปารีส L&#039;Oréal Revitalift Hyaluronic Acid Line Filling Water Cream 50mlครีมบำรุงผิวเติมความชุ่มชื้นเสริมปราการผิว</h2>
         <p class="product-price">฿529</p>
-        <a href="https://www.lazada.co.th/products/i4844769376.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i4844769376.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/Scd859f4ecd2747f59c10fddd8d22f07a2.jpg" alt="[แพ็ค5ชิ้น] ลอรีอัล ปารีส L&#039;Oréal Paris Revitalift Crystal Micro-Essence Treatment Mask เอสเซนส์ทรีทเม้นท์มาสก์บำรุงผิว" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/Scd859f4ecd2747f59c10fddd8d22f07a2.jpg" alt="[แพ็ค5ชิ้น] ลอรีอัล ปารีส L&#039;Oréal Paris Revitalift Crystal Micro-Essence Treatment Mask เอสเซนส์ทรีทเม้นท์มาสก์บำรุงผิว" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">[แพ็ค5ชิ้น] ลอรีอัล ปารีส L&#039;Oréal Paris Revitalift Crystal Micro-Essence Treatment Mask เอสเซนส์ทรีทเม้นท์มาสก์บำรุงผิว</h2>
         <p class="product-price">฿299</p>
-        <a href="https://www.lazada.co.th/products/i4030210142.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i4030210142.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://filebroker-cdn.lazada.co.th/kf/S778df87ae3194ac781efc45958671319n.jpg" alt="ลอรีอัล ปารีส เอลแซฟ ไกลโคลิค กลอส แชมพู 620มล. x2 L&#039;OREAL PARIS ELSEVE GLYCOLIC GLOSS Shampoo 620ml x2" class="product-image">
+      <div class="product-image-container">
+        <img src="https://filebroker-cdn.lazada.co.th/kf/S778df87ae3194ac781efc45958671319n.jpg" alt="ลอรีอัล ปารีส เอลแซฟ ไกลโคลิค กลอส แชมพู 620มล. x2 L&#039;OREAL PARIS ELSEVE GLYCOLIC GLOSS Shampoo 620ml x2" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">ลอรีอัล ปารีส เอลแซฟ ไกลโคลิค กลอส แชมพู 620มล. x2 L&#039;OREAL PARIS ELSEVE GLYCOLIC GLOSS Shampoo 620ml x2</h2>
         <p class="product-price">฿309</p>
-        <a href="https://www.lazada.co.th/products/i5864860944.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5864860944.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
   </main>
   
   
   <footer class="footer">
-    <p>Powered by <a href="http://localhost:3000" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">AffiliateMe</a></p>
+    <p>© 2026 test. Powered by <a href="http://localhost:3000" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">AffiliateMe</a></p>
   </footer>
   
 </body>
